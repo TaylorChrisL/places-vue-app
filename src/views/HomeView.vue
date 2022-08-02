@@ -41,16 +41,24 @@ export default {
       this.editPlaceParams = place;
     },
     updatePlace: function (place) {
-      axios.patch("http://localhost:3000/places/" + place.id, this.editPlaceParams).then((response) => {
-        console.log("We done it!!!", response.data);
-      });
+      axios
+        .patch("http://localhost:3000/places/" + place.id, this.editPlaceParams)
+        .then((response) => {
+          console.log("We done it!!!", response.data);
+        })
+        .catch((error) => (this.errorMessage = error))
+        .then((this.showErrorMessage = true));
     },
     destroyPlace: function (place) {
-      axios.delete("http://localhost:3000/places/" + place.id).then((response) => {
-        console.log("Success!", response.data);
-        var index = this.places.indexOf(place);
-        this.places.splice(index, 1);
-      });
+      axios
+        .delete("http://localhost:3000/places/" + place.id)
+        .then((response) => {
+          console.log("Success!", response.data);
+          var index = this.places.indexOf(place);
+          this.places.splice(index, 1);
+        })
+        .catch((error) => (this.errorMessage = error))
+        .then((this.showErrorMessage = true));
     },
   },
 };
